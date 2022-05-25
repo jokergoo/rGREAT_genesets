@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
     message = FALSE,
     echo = FALSE)
 library(GetoptLong)
+library(rGREAT)
 ```
 
 
@@ -44,14 +45,7 @@ df_protists = add_columns(df_protists)
 ```
 
 
-The data were retrieved from Biomart (on 2022-05-24). The R script can be found at https://github.com/jokergoo/rGREAT/blob/master/inst/extdata/biomart_genesets.R.
-
-To use the Biomart GO gene sets, just specify the `biomart_dataset` argument. Valid values
-for `biomart_dataset` are in the first columns in the following tables.
-
-```{r, eval = FALSE, echo = TRUE}
-res = great(gr, "GO:BP", biomart_dataset = "abrachyrhynchus_gene_ensembl")
-```
+The data were retrieved from BioMart on 2022-05-24. The R script can be found at https://github.com/jokergoo/rGREAT/blob/master/inst/extdata/biomart_genesets.R.
 
 ## Ensembl organisms (`r nrow(df_genes)` organisms)
 
