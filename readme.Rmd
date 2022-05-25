@@ -47,6 +47,8 @@ df_protists = add_columns(df_protists)
 
 The data were retrieved from BioMart on 2022-05-24. The R script can be found at https://github.com/jokergoo/rGREAT/blob/master/inst/extdata/biomart_genesets.R.
 
+Please note the gene object may contain a large number of small contigs. You may need to manually filter them out.
+
 ## Ensembl organisms (`r nrow(df_genes)` organisms)
 
 ```{r}
