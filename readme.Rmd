@@ -1,5 +1,5 @@
 ---
-title: "Biomart Gene Ontology Gene Sets Collections"
+title: "BioMart Gene Ontology Gene Sets Collections"
 author: "Zuguang Gu ( z.gu@dkfz.de )"
 date: '`r Sys.Date()`'
 output:
@@ -32,6 +32,9 @@ df_protists = read.csv("00_protists_mart.csv")
 
 add_columns = function(df) {
 	colnames(df) = c("Dataset", "Description", "Version")
+
+  df[, 2] = gsub(" \\(.*\\)", "", df[, 2])
+
 	df$Genes = qq("[genes](genes/granges_@{df[, 1]}_genes.rds)", collapse = FALSE)
 	df[["Gene sets"]] = qq("[BP](genesets/bp_@{df[, 1]}_go_genesets.rds), [CC](genesets/cc_@{df[, 1]}_go_genesets.rds), [MF](genesets/mf_@{df[, 1]}_go_genesets.rds)", collapse = FALSE)
 	df
