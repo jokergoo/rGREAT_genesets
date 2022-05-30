@@ -30,13 +30,21 @@ df_metazoa = read.csv("00_metazoa_mart.csv")
 df_fungi = read.csv("00_fungi_mart.csv")
 df_protists = read.csv("00_protists_mart.csv")
 
+get_gs_n = function(x, ns) {
+  lt = readRDS(qq("genesets/@{ns}_@{x}_go_genesets.rds"))
+  length(lt)
+}
+
 add_columns = function(df) {
 	colnames(df) = c("Dataset", "Description", "Version")
 
   df[, 2] = gsub(" \\(.*\\)", "", df[, 2])
 
 	df$Genes = qq("[genes](genes/granges_@{df[, 1]}_genes.rds)", collapse = FALSE)
-	df[["Gene sets"]] = qq("[BP](genesets/bp_@{df[, 1]}_go_genesets.rds), [CC](genesets/cc_@{df[, 1]}_go_genesets.rds), [MF](genesets/mf_@{df[, 1]}_go_genesets.rds)", collapse = FALSE)
+  n1 = sapply(df[, 1], get_gs_n, ns = "bp")
+  n2 = sapply(df[, 1], get_gs_n, ns = "cc")
+  n3 = sapply(df[, 1], get_gs_n, ns = "mf")
+  df[["Gene sets"]] = qq("[BP](genesets/bp_@{df[, 1]}_go_genesets.rds) (@{n1}), [CC](genesets/cc_@{df[, 1]}_go_genesets.rds) (@{n2}), [MF](genesets/mf_@{df[, 1]}_go_genesets.rds) (@{n3})", collapse = FALSE)
 	df
 }
 
